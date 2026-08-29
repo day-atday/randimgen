@@ -10,14 +10,20 @@ import java.util.Random;
 
 
 public class create_File {
-    
+
+    public static class genConf {
+        public boolean isRandom;
+        public boolean isXGradient;
+        public boolean isStatic;
+    }
     
     public static void getOutDataToFile() throws IOException {
+        
         File makeFile = new File("testerpicture.bmp");
         
         int x_total = 1280;
         int y_total = 720;
-        int color_limit = 255;
+        
         ByteArrayOutputStream outputData = new ByteArrayOutputStream();
 
         // HEADER
@@ -165,9 +171,9 @@ public class create_File {
         };
         outputData.write(hardcoded_header);
 
-        byte[] outDataToFile = makePixelData(y_total, x_total, outputData, color_limit);
+        byte[] outDataToFile = makePixelData(y_total, x_total, outputData);
         
-        write(outDataToFile, makeFile);
+        write_File(outDataToFile, makeFile);
 
         // Get index
         //int ind_y = 0;
@@ -181,19 +187,33 @@ public class create_File {
         //int index = (ind_y * x_total + ind_x) *3;        
     }
 
-    private static byte[] makePixelData(int y_total, int x_total, ByteArrayOutputStream outputData, int color_limit) throws IOException{
-        Random random = new Random();
+    private static byte[] makePixelData(int y_total, int x_total, ByteArrayOutputStream outputData) throws IOException{
+
+        genConf configurationB = new genConf();
+        configurationB.isRandom = true;
+
+        genConf configurationG = new genConf();
+        configurationG.isXGradient = true;
+        
+        genConf configurationR = new genConf();
+        configurationR.isXGradient = true;
+        
+        int blue = 0;
+        int green = 0;
+        int red = 0;
+
         // PIXEL DATA
+        // VERTICAL
         for(int y = 0; y < y_total; y++){
-            int blue = random.nextInt(0, color_limit);
-            int green = random.nextInt(0, color_limit);
-            int red = random.nextInt(0,color_limit);
-            
+                
             ByteArrayOutputStream row = new ByteArrayOutputStream();
 
-            // VERTICAL
+            //HORIZONTAL
             for(int x = 0 ; x < x_total ; x++){
-                //HORIZONTAL
+                blue = set_color(blue, x, y, x_total, y_total, configurationB);;
+                green = 0;
+                red = set_color(red, x, y, x_total, y_total, configurationR);
+
                 row.write(blue);
                 row.write(green);
                 row.write(red);
@@ -230,10 +250,32 @@ public class create_File {
     }
     }
 
-    private static void write(byte[] outDataToFile, File makeFile) throws IOException{
+    private static void write_File(byte[] outDataToFile, File makeFile) throws IOException{
         // WRITING
         try(FileOutputStream outputStream = new FileOutputStream(makeFile)){
             outputStream.write(outDataToFile);
         }
-    }    
+    }
+
+    private static int set_color(int color, int x, int y ,  int x_total, int y_total, genConf configuration){
+        int color_limit = 255;
+
+        Random random = new Random();
+
+        if(configuration.isRandom){
+            return random.nextInt(0,color_limit);
+        }
+
+        else if(configuration.isXGradient){
+            if(x < 1280) {
+                color += 1;
+            }
+            if(color == 255){
+                color = 0;
+            }
+        }
+
+
+        return Math.max(0, Math.min(color, color_limit));
+    }
 }
