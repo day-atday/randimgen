@@ -24,7 +24,7 @@ public class create_File {
 
     public static void getOutDataToFile() throws IOException {
         
-        File makeFile = new File("testerpicture.bmp");
+        File makeFile = new File("randimg.bmp");
         
         int x_total = 1280;
         int y_total = 720;
@@ -68,16 +68,19 @@ public class create_File {
         configurationB.isBigLines = randomConf.nextBoolean();
         configurationB.isMediumLines = randomConf.nextBoolean();
         configurationB.isSmallLines = randomConf.nextBoolean();
+        configurationB.isRandomDiag = randomConf.nextBoolean();
 
         configurationG.isCheckerboard = randomConf.nextBoolean();
         configurationG.isBigLines = randomConf.nextBoolean();
         configurationG.isMediumLines = randomConf.nextBoolean();
         configurationG.isSmallLines = randomConf.nextBoolean();
+        configurationG.isRandomDiag = randomConf.nextBoolean();
 
         configurationR.isCheckerboard = randomConf.nextBoolean();
         configurationR.isBigLines = randomConf.nextBoolean();
         configurationR.isMediumLines = randomConf.nextBoolean();
-        configurationR.isSmallLines = randomConf.nextBoolean();        
+        configurationR.isSmallLines = randomConf.nextBoolean(); 
+        configurationR.isRandomDiag = randomConf.nextBoolean();       
         
         int blue = 0;
         int green = 0;
@@ -112,7 +115,7 @@ public class create_File {
 
     private static void read() throws IOException{
 
-        Path filepath = Paths.get("testerpicture.bmp");
+        Path filepath = Paths.get("randimg.bmp");
         // READING
         byte[] byteArray = Files.readAllBytes(filepath);
 
@@ -209,146 +212,70 @@ public class create_File {
         // TO CHANGE RESOLUTION SEARCH FOR COMMENTED BYTES
         // THE BYTES CHANGED NEED TO BE IN LITTLE ENDIAN
         byte[] hardcoded_header = {
-        (byte) 0x42,
-        (byte) 0x4D,
-        (byte) 0xBA,
-        (byte) 0x75,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x8A,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x7C,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00, // W == 1280 = Little Endian == 0x500
-        (byte) 0x05,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0xD0, // Y == 720 == 0xD002
-        (byte) 0x02,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x01,
-        (byte) 0x00,
-        (byte) 0x18,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x30,
-        (byte) 0x75,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x23,
-        (byte) 0x2E,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x23,
-        (byte) 0x2E,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0xFF,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0xFF,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0xFF,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x42,
-        (byte) 0x47,
-        (byte) 0x52,
-        (byte) 0x73,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x02,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00,
-        (byte) 0x00
-        };
-        
-        return hardcoded_header;
+            // FILE HEADER
+            (byte) 0x42, // B
+            (byte) 0x4D, // M
+
+            (byte) 0x36,
+            (byte) 0x30,
+            (byte) 0x2A,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x36,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x28,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+
+            // WIDTH = 1280 = 0x00000500
+            (byte) 0x00, // W == 1280 = Little Endian == 0x500
+            (byte) 0x05,
+            (byte) 0x00,
+            (byte) 0x00,
+
+            // HEIGHT = 720 = 0x000002D0
+            (byte) 0xD0, // Y == 720 = Little Endian == 0x2D0
+            (byte) 0x02,
+            (byte) 0x00,
+            (byte) 0x00,
+
+
+            (byte) 0x01,
+            (byte) 0x00,
+            (byte) 0x18,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x30,
+            (byte) 0x2A,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00,
+            (byte) 0x00
+    };
+
+    return hardcoded_header;
     }
 }

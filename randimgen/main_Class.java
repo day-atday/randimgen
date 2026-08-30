@@ -2,7 +2,6 @@ package randimgen;
 
 import java.io.IOException;
 
-
 //* READ BYTES FROM FILE */
 // https://www.delftstack.com/howto/java/java-read-bytes-from-file/
 
@@ -21,11 +20,19 @@ import java.io.IOException;
 // WINDOW
 // https://docs.oracle.com/javase/tutorial/uiswing/components/frame.html
 
+// BUTTONS
+// https://www.geeksforgeeks.org/java/java-jframe/
+
+// IF FILE EXISTS
+// https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java#1816676
+
+// IMAGIO
+// https://www.delftstack.com/howto/java/java-imagio/
+
 public class main_Class {
     public static void main(String[] args) throws IOException{
+        make_Window window = new make_Window();
+        window.MainWindow();
         
-        create_File.getOutDataToFile();
-        
-    
     }
 }
