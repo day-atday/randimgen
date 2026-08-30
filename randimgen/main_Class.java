@@ -2,6 +2,7 @@ package randimgen;
 
 import java.io.IOException;
 
+
 //* READ BYTES FROM FILE */
 // https://www.delftstack.com/howto/java/java-read-bytes-from-file/
 
