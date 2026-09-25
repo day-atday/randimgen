@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
+import java.io.IOException;
 
 
 public class make_Window {
@@ -79,7 +79,7 @@ public class make_Window {
 
         buttonTextToFile.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)  {
                 try{
                     JFrame frameTextToFile = new JFrame("Insert text");
                     frameTextToFile.setLocationRelativeTo(null);
@@ -95,6 +95,13 @@ public class make_Window {
                         public void actionPerformed(ActionEvent e) {
                             // NEEDS A TRY CATCH HERE
                             setterString(textField.getText());
+
+                            try {
+                                create_File.getOutDataToFile(true);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+
                             JOptionPane.showMessageDialog(frame,"File created");
                         }
                     });

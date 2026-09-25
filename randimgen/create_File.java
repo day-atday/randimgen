@@ -58,8 +58,7 @@ public class create_File {
     }
 
     private static byte[] makePixelData(int y_total, int x_total, ByteArrayOutputStream outputData, boolean writeString) throws IOException{
-        
-        Random randomConf = new Random();
+
 
         int[] integerUserString = new int[0];
 
@@ -82,6 +81,8 @@ public class create_File {
 
         // PIXEL DATA
         // VERTICAL
+
+
         for(int y = 0; y < y_total; y++){
             ByteArrayOutputStream row = new ByteArrayOutputStream();
 
@@ -90,19 +91,27 @@ public class create_File {
                 if(writeString && y == 1){
                     // HEAD AND TAIL USES 137 TO SYMBOLIZE
                     // HEAD OF TEXT FROM 0 TO 16
+
                     if(x < 16){
                         blue = 137;
+                        System.out.println("INSERTING HEADER");
                     }
-                    if((x - 16) < integerUserString.length){
-                        blue = integerUserString[x - 16];
+                    else if((x - 16) < integerUserString.length){
+                        blue = integerUserString[x-16];
+                        System.out.println("INSERTING USERSTRING");
                     }
                     // TAIL OF TEXT FROM LAST CHAR TO 32
-                    else if((x - 16) > ((x - 16) + integerUserString.length) && !((x - 16 - integerUserString.length) > 32)){
-                        blue = 137;
+                    else if(((x - 16) - integerUserString.length) < 16){
+                        blue=137;
+                        System.out.println("INSERTING TAIL");
+
                     }
                 }
 
-                blue = set_color(blue, x, y, x_total, y_total, configurationB);;
+                if(!writeString){
+                    blue = set_color(blue, x, y, x_total, y_total, configurationB);
+                }
+
                 green = set_color(green, x, y, x_total, y_total, configurationG);
                 red = set_color(red, x, y, x_total, y_total, configurationR);
 
@@ -213,16 +222,15 @@ public class create_File {
         return Math.clamp(color, 0, color_limit);
     }
 
-    public static int[] convertStringToInt(String text){
+    public static int[] convertStringToInt(String text) {
 
         int[] userString_int = new int[text.length()];
 
-        for(int i = 0; i < text.length(); i++){
-            int charsToInt = (int) text.charAt(i);
+        for (int i = 0; i < text.length(); i++) {
+            int charsToInt = text.charAt(i);
             userString_int[i] = charsToInt;
         }
 
-        System.out.println(Arrays.toString(userString_int));
         return userString_int;
 
     }
