@@ -2,6 +2,7 @@ package randimgen;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +35,8 @@ public class make_Window {
         JButton buttonGenerate = new JButton("Generate a picture");
 
         JButton buttonTextToFile = new JButton("Insert text into the picture");
+
+        JButton readTextFromFile = new JButton("Read text from picture");
 
         buttonGenerate.addActionListener(new ActionListener() {
 
@@ -82,7 +85,7 @@ public class make_Window {
             public void actionPerformed(ActionEvent e)  {
                 try{
                     JFrame frameTextToFile = new JFrame("Insert text");
-                    frameTextToFile.setLocationRelativeTo(null);
+                    frameTextToFile.setLocationRelativeTo(frame);
                     frameTextToFile.setSize(640, 150);
                     frameTextToFile.setResizable(false);
 
@@ -93,7 +96,9 @@ public class make_Window {
                     buttonGenerateTextToPic.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            // NEEDS A TRY CATCH HERE
+                            if(textField.getText().length() > 1280){
+                                JOptionPane.showMessageDialog(frame,"Using text longer than 1280 characters will result in the loss of information");
+                            }
                             setterString(textField.getText());
 
                             try {
@@ -103,6 +108,9 @@ public class make_Window {
                             }
 
                             JOptionPane.showMessageDialog(frame,"File created");
+
+                            frameTextToFile.setVisible(false);
+                            frameTextToFile.dispose();
                         }
                     });
 
@@ -117,17 +125,51 @@ public class make_Window {
             }
         });
 
+        readTextFromFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                final JFileChooser fc = new JFileChooser();
+                fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+
+                FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("bmp files","bmp");
+                fc.setFileFilter(fileFilter);
+
+                int returnVal = fc.showOpenDialog(null);
+                if(returnVal == JFileChooser.APPROVE_OPTION){
+                    File selectedFile = fc.getSelectedFile();
+
+                    try {
+                        String stringInFile = create_File.readFile(selectedFile);
+                        //JOptionPane.showMessageDialog(frame,"[String in file]\n" + stringInFile);
+
+                        JTextArea ta = new JTextArea(10, 10);
+
+                        ta.setText(stringInFile);
+                        ta.setWrapStyleWord(true);
+                        ta.setLineWrap(true);
+                        ta.setCaretPosition(0);
+                        ta.setEditable(false);
+
+                        JOptionPane.showMessageDialog(frame, new JScrollPane(ta), "[STRING IN FILE]", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            }
+        });
+
         panel_button.add(buttonGenerate);
         panel_button.add(buttonTextToFile);
-
+        panel_button.add(readTextFromFile);
 
         frame.add(panel_image, BorderLayout.CENTER);
         frame.add(panel_button, BorderLayout.SOUTH);
 
-        // OUTPUT WINDOW
         frame.setVisible(true);
     }
 
+    // SETTERS AND GETTERS
+    // USED TO PASS THE STRING TO CREATE_FILE FOR PROCESSING
     public void setterString(String userString){
         make_Window.userString = userString;
     }
