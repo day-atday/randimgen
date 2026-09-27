@@ -102,7 +102,7 @@ public class create_File {
                         System.out.println("INSERTING HEADER");
                     }
                     else if((x - 2) < integerUserString.length){
-                        blue = integerUserString[x-2];
+                        blue = cipher.cipherChar(integerUserString[x-2]);
                         red = r.nextInt(65,122);
                         green = r.nextInt(65,122);
                         System.out.println("INSERTING USERSTRING");
@@ -156,7 +156,7 @@ public class create_File {
                     if(byteToInteger == 21){
                         break;
                     } else {
-                        userString.append(character);
+                        userString.append(cipher.decodeChar(character));
 
                     }
                 }

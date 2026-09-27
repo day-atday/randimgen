@@ -34,7 +34,7 @@ public class make_Window {
 
         JButton buttonGenerate = new JButton("Generate a picture");
 
-        JButton buttonTextToFile = new JButton("Insert text into the picture");
+        JButton buttonTextToFile = new JButton("Insert text into a picture");
 
         JButton readTextFromFile = new JButton("Read text from picture");
 
